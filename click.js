@@ -14,6 +14,7 @@ function click() {
     }
 
     function draw() {
+        context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         context.fillRect(x, y, 10, 10);
     }
 
