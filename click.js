@@ -18,7 +18,7 @@ function click() {
         context.fillRect(x, y, 10, 10);
     }
 
-    canvas.addEventListener("click", onClick, false);
+    canvas.addEventListener("dblclick", onClick, false);
 }
 
 click();
