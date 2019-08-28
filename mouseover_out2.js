@@ -3,74 +3,73 @@ function mouseover_out2() {
 	let context = canvas.getContext("2d");
 
 	let targetFlag = false;
-	let rect = null;
 
 	let w = canvas.width;
 	let h = canvas.height;
 
-	function onMouseOver(e) {
-		rect = e.target.getBoundingClientRect();
-		canvas.addEventListener("mousemove", onMouseMove, false);
-	}
+	class MouseOverBox {
+		constructor(x, y, width, height) {
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+			this.targetFlag = false;
 
-	function onMouseOut() {
-		canvas.removeEventListener("mousemove", onMouseMove, false);
-	}
-
-	function onMouseMove(e) {
-		moveActions.updateTargetFlag(e);
-
-		if (targetFlag) {
-			moveActions.throttle(moveActions.over, 50);
-		} else {
-			moveActions.throttle(moveActions.out, 50);
+			this.drawRect();
 		}
-	}
 
-	let moveActions = {
-		timer: null,
-		updateTargetFlag: function(e) {
+		updateTargetFlag(e) {
+			let rect = e.target.getBoundingClientRect();
 			let x = e.clientX - rect.left;
 			let y = e.clientY - rect.top;
 
-			let a = (x > w / 2 - 50);
-			let b = (x < w / 2 + 50);
-			let c = (y > h / 2 - 50);
-			let d = (y < h / 2 + 50);
+			let a = x > this.x;
+			let b = x < this.x + this.width;
+			let c = y > this.y;
+			let d = y < this.y + this.height;
 
-			targetFlag = (a && b && c && d);
-		},
-		throttle: function(targetFunc, time) {
+			this.targetFlag = a && b && c & d;
+		}
+
+		onMouseMove(e) {
+			this.updateTargetFlag(e);
+
+			if (this.targetFlag) {
+				this.over();
+			} else {
+				this.out();
+			}
+		}
+
+		throttle(targetFunc, time) {
 			let _time = time || 100;
 			clearTimeout(this.timer);
 			this.timer = setTimeout(function () {
 				targetFunc();
 			}, _time);
-		},
-		out: function() {
+		}
+
+		out() {
 			drawRect();
-		},
-		over: function() {
+		}
+
+		over() {
 			drawRectIsHover();
 		}
-	};
 
-	function drawRect(color) {
-		let _col = color || 'black';
-		context.clearRect(0, 0, w, h);
-		context.beginPath();
-		context.fillStyle = _col;
-		context.fillRect(w / 2 - 50, h / 2 - 50, 100, 100);
+		drawRect(color) {
+			let _col = color || 'black';
+			context.fillStyle = _col;
+			context.fillRect(this.x, this.y, this.width, this.height);
+		}
+	
+		drawRectIsHover() {
+			drawRect("blue");
+		}
 	}
 
-	function drawRectIsHover() {
-		drawRect("blue");
-	}
-
-	canvas.addEventListener("mouseover", onMouseOver, false);
-	canvas.addEventListener("mouseout", onMouseOut, false);
-
-	drawRect();
+	let box1 = new MouseOverBox(25, 100, 100, 100);
+	let box2 = new MouseOverBox(175, 100, 100, 100);
 }
 
 mouseover_out2();
