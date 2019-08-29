@@ -1,4 +1,44 @@
 function draw() {
+
+    class Card {
+        constructor(mark, number){
+            this.mark = mark;
+            this.number = number;
+        }
+    }
+
+    class Deck {
+        constructor() {
+            this.cards = Array(52);
+            for (let i = 0; i < 52; i++) {
+                let mark = function(mark) {
+                    switch(mark){
+                    case 0:
+                        return "spade"
+                    case 1:
+                        return "club"
+                    case 2:
+                        return "diamond"
+                    case 3:
+                        return "heart"
+                    default:
+                        return "joker"
+                    };
+                }(parseInt(i / 13));
+                let number = i % 13 + 1;
+
+                this.cards[i] = new Card(mark, number);
+            }
+        }
+
+        draw() {
+            let index = parseInt(Math.random() * this.cards.length);
+            let drawn_card = this.cards[index];
+            this.cards.splice(index, 1);
+            return drawn_card;
+        }
+    }
+
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext("2d");
 
@@ -6,6 +46,8 @@ function draw() {
     const deck_top = 50;
     const deck_width = 100;
     const deck_height = 100;
+
+    let deck = new Deck();
 
     function onClick(e) {
         let rect = e.target.getBoundingClientRect();
@@ -23,30 +65,19 @@ function draw() {
     }
 
     function drawDeck() {
-        let index = Math.round(Math.random() * 52);
-        let mark = function(mark) {
-            switch(mark){
-            case 0:
-                return "spade"
-            case 1:
-                return "club"
-            case 2:
-                return "diamond"
-            case 3:
-                return "heart"
-            default:
-                return "joker"
-            };
-        }(parseInt(index / 13));
-        let number = index % 13 + 1;
+        let card = deck.draw();
 
-        let text = mark + " " + number;
+        let text = card.mark + " " + card.number;
         context.fillStyle = "black";
         context.font = "15px MSゴシック";
         context.textAlign = "center";
         context.textBaseline = "center";
         context.clearRect(deck_left, deck_top, deck_width, deck_height);
         context.fillText(text, deck_left + deck_width / 2, deck_top + deck_height / 2);
+
+        context.textAlign = "right";
+        context.textBaseLine = "center"
+        context.fillText(deck.cards.length, deck_left + deck_width, deck_top + 15);
     }
 
     canvas.addEventListener("click", onClick, false);
