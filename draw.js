@@ -32,6 +32,8 @@ function draw() {
         }
 
         draw() {
+            if (this.cards.length == 0)
+                return new Card("joker", "0");
             let index = parseInt(Math.random() * this.cards.length);
             let drawn_card = this.cards[index];
             this.cards.splice(index, 1);
