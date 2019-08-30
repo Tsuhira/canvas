@@ -34,6 +34,21 @@ function draw() {
 
 				this.cards[i] = new Card(mark, number);
 			}
+
+			this.flg_click = false;
+		}
+
+		onClick(x, y) {
+			let a = x > this.left;
+			let b = x < this.left + this.width;
+			let c = y > this.top;
+			let d = y < this.top + this.height;
+
+			if (a && b && c && d) {
+				this.flg_click = true;
+			} else {
+				this.flg_click = false;
+			}   
 		}
 
         draw() {
@@ -56,14 +71,11 @@ function draw() {
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
 
-        let a = x > deck.left;
-        let b = x < deck.left + deck.width;
-        let c = y > deck.top;
-        let d = y < deck.top + deck.height;
+		deck.onClick(x, y);
 
-        if (a && b && c && d) {
-            drawDeck();
-        }        
+		if (deck.flg_click) {
+			drawDeck();
+		}
     }
 
     function drawDeck() {
