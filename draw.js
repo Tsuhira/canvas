@@ -8,28 +8,33 @@ function draw() {
     }
 
     class Deck {
-        constructor() {
-            this.cards = Array(52);
-            for (let i = 0; i < 52; i++) {
-                let mark = function(mark) {
-                    switch(mark){
-                    case 0:
-                        return "spade"
-                    case 1:
-                        return "club"
-                    case 2:
-                        return "diamond"
-                    case 3:
-                        return "heart"
-                    default:
-                        return "joker"
-                    };
-                }(parseInt(i / 13));
-                let number = i % 13 + 1;
+		constructor(left, top, width, height) {
+			this.left = left;
+			this.top = top;
+			this.width = width;
+			this.height = height;
 
-                this.cards[i] = new Card(mark, number);
-            }
-        }
+			this.cards = Array(52);
+			for (let i = 0; i < 52; i++) {
+				let mark = function(mark) {
+					switch(mark){
+					case 0:
+						return "spade"
+					case 1:
+						return "club"
+					case 2:
+						return "diamond"
+					case 3:
+						return "heart"
+					default:
+						return "joker"
+					};
+				}(parseInt(i / 13));
+				let number = i % 13 + 1;
+
+				this.cards[i] = new Card(mark, number);
+			}
+		}
 
         draw() {
             if (this.cards.length == 0)
@@ -44,22 +49,17 @@ function draw() {
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext("2d");
 
-    const deck_left = 100;
-    const deck_top = 50;
-    const deck_width = 100;
-    const deck_height = 100;
-
-    let deck = new Deck();
+    let deck = new Deck(100, 50, 100, 100);
 
     function onClick(e) {
         let rect = e.target.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
 
-        let a = x > deck_left;
-        let b = x < deck_left + deck_width;
-        let c = y > deck_top;
-        let d = y < deck_top + deck_height;
+        let a = x > deck.left;
+        let b = x < deck.left + deck.width;
+        let c = y > deck.top;
+        let d = y < deck.top + deck.height;
 
         if (a && b && c && d) {
             drawDeck();
@@ -74,18 +74,18 @@ function draw() {
         context.font = "15px MSゴシック";
         context.textAlign = "center";
         context.textBaseline = "center";
-        context.clearRect(deck_left, deck_top, deck_width, deck_height);
-        context.fillText(text, deck_left + deck_width / 2, deck_top + deck_height / 2);
+        context.clearRect(deck.left, deck.top, deck.width, deck.height);
+        context.fillText(text, deck.left + deck.width / 2, deck.top + deck.height / 2);
 
         context.textAlign = "right";
         context.textBaseLine = "center"
-        context.fillText(deck.cards.length, deck_left + deck_width, deck_top + 15);
+        context.fillText(deck.cards.length, deck.left + deck.width, deck.top + 15);
     }
 
     canvas.addEventListener("click", onClick, false);
 
     context.beginPath();
-    context.rect(deck_left, deck_top, deck_width, deck_height);
+    context.rect(deck.left, deck.top, deck.width, deck.height);
     context.stroke();
 }
 draw();
