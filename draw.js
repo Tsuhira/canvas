@@ -51,7 +51,7 @@ function draw() {
 			}   
 		}
 
-        draw() {
+        drawCard() {
             if (this.cards.length == 0)
                 return new Card("joker", "0");
             let index = parseInt(Math.random() * this.cards.length);
@@ -79,7 +79,7 @@ function draw() {
     }
 
     function drawDeck() {
-        let card = deck.draw();
+        let card = deck.drawCard();
 
         let text = card.mark + " " + card.number;
         context.fillStyle = "black";
