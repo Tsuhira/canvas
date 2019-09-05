@@ -143,6 +143,6 @@ function draw() {
         context.stroke();
     }
 
-    initizalize();
+    Card.sprite.onload = initizalize;
 }
 draw();
