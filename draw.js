@@ -33,7 +33,7 @@ function draw() {
             if(this.number / 7 > 1)
                 x += 4;
 
-            y = (this.number % 7) - 1;
+            y = (this.number - 1) % 7;
 
             this.left = x * Card.width + 1;
             this.top = y * Card.height + 1;
