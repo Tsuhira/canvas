@@ -38,6 +38,13 @@ function draw() {
             this.left = x * Card.width + 1;
             this.top = y * Card.height + 1;
         }
+
+        drawImage(left, top) {
+            context.clearRect(left, top, Card.width, Card.height);
+            context.drawImage(Card.sprite,
+                                this.left, this.top, Card.width, Card.height,
+                                left, top, Card.width, Card.height);
+        }
     }
     Card.width = 59;
     Card.height = 89;
