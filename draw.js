@@ -4,8 +4,48 @@ function draw() {
         constructor(mark, number){
             this.mark = mark;
             this.number = number;
+            this.left = null;
+            this.top = null;
+            this.initializePosition();
+        }
+
+        initializePosition(){
+            let x, y;
+            switch(this.mark){
+            case "spade":
+                x = 1;
+                break;
+            case "club":
+                x = 3;
+                break;
+            case "diamond":
+                x = 2;
+                break;
+            case "heart":
+                x = 0;
+                break;
+            default:
+                this.left = Card.joker_left;
+                this.top = Card.joker_top;
+                return;
+            }
+
+            if(this.number / 7 > 1)
+                x += 4;
+
+            y = (this.number % 7) - 1;
+
+            this.left = x * Card.width + 1;
+            this.top = y * Card.height + 1;
         }
     }
+    Card.sprite = "img/cards.png";
+    Card.width = 59;
+    Card.height = 89;
+    Card.back_left = 420;
+    Card.back_top = 540;
+    Card.joker_left = 240;
+    Card.joker_top = 540;
 
     class Deck {
 		constructor(left, top, width, height) {
