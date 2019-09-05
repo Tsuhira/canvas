@@ -39,9 +39,10 @@ function draw() {
             this.top = y * Card.height + 1;
         }
     }
-    Card.sprite = "img/cards.png";
     Card.width = 59;
     Card.height = 89;
+    Card.sprite = new Image();
+    Card.sprite.src = "img/cards.png";
     Card.back_left = 420;
     Card.back_top = 540;
     Card.joker_left = 240;
