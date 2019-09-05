@@ -109,6 +109,47 @@ function draw() {
         }
     }
 
+    class Hand {
+        constructor(left, top, width, height) {
+            this.left = left;
+            this.top = top;
+            this.width = width;
+            this.height = height;
+            this.cards = [];
+        }
+
+        addCard(card) {
+            this.cards.push({"card":card, "left":null, "top":null});
+            this.locateCards();
+        }
+
+        locateCards() {
+            let num = this.cards.length;
+
+            if (Card.width * num < this.width) {
+                for (let i = 0; i < num; i++) {
+                    this.cards[i].left = this.left + Card.width * i;
+                    this.cards[i].top = this.top;
+                }
+            } else {
+				let width_per_card = this.width / num;
+				for (let i = 0; i < num; i++) {
+					this.cards[i].left = this.left + width_per_card * i;
+					this.cards[i].top = this.top;
+				}
+			}
+        }
+
+        drawImage() {
+            for (let i = 0; i < this.cards.length; i++) {
+				this.cards[i].card.drawImage( 
+					this.cards[i].left,
+					this.cards[i].top
+				);
+            }
+        }
+    }
+
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext("2d");
 
