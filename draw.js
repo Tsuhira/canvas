@@ -145,9 +145,11 @@ function draw() {
     function initizalize() {
         canvas.addEventListener("click", onClick, false);
 
-        context.beginPath();
-        context.rect(deck.left, deck.top, deck.width, deck.height);
-        context.stroke();
+        context.drawImage(Card.sprite, 
+                            Card.back_left, Card.back_top, 
+                            Card.width, Card.height,
+                            deck.left, deck.top,
+                            deck.width, deck.height);
     }
 
     Card.sprite.onload = initizalize;
