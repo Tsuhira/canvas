@@ -154,6 +154,8 @@ function draw() {
     let context = canvas.getContext("2d");
 
     let deck = new Deck(120, 50);
+	let hand = new Hand(0, canvas.height - Card.height, 
+						canvas.width, canvas.height);
 
     function onClick(e) {
         let rect = e.target.getBoundingClientRect();
@@ -171,6 +173,8 @@ function draw() {
         let card = deck.drawCard();
 
         card.drawImage(deck.left, deck.top);
+		hand.addCard(card);
+		hand.drawImage();
 
         console.log(card.mark + " " + card.number);
 
