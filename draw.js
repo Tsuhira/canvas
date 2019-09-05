@@ -56,11 +56,11 @@ function draw() {
     Card.joker_top = 540;
 
     class Deck {
-		constructor(left, top, width, height) {
+		constructor(left, top) {
 			this.left = left;
 			this.top = top;
-			this.width = width;
-			this.height = height;
+			this.width = Card.width;
+			this.height = Card.height;
 
 			this.cards = Array(52);
 			for (let i = 0; i < 52; i++) {
@@ -112,7 +112,7 @@ function draw() {
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext("2d");
 
-    let deck = new Deck(100, 50, 100, 100);
+    let deck = new Deck(120, 50);
 
     function onClick(e) {
         let rect = e.target.getBoundingClientRect();
