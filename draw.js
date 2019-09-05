@@ -35,8 +35,8 @@ function draw() {
 
             y = (this.number - 1) % 7;
 
-            this.left = x * Card.width + 1;
-            this.top = y * Card.height + 1;
+            this.left = x * Card.width;
+            this.top = y * Card.height;
         }
 
         drawImage(left, top) {
@@ -46,10 +46,10 @@ function draw() {
                                 left, top, Card.width, Card.height);
         }
     }
-    Card.width = 59;
-    Card.height = 89;
     Card.sprite = new Image();
     Card.sprite.src = "img/cards.png";
+    Card.width = 60;
+    Card.height = 90;
     Card.back_left = 420;
     Card.back_top = 540;
     Card.joker_left = 240;
