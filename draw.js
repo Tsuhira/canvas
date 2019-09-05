@@ -129,17 +129,15 @@ function draw() {
     function drawDeck() {
         let card = deck.drawCard();
 
-        let text = card.mark + " " + card.number;
-        context.fillStyle = "black";
-        context.font = "15px MSゴシック";
-        context.textAlign = "center";
-        context.textBaseline = "center";
-        context.clearRect(deck.left, deck.top, deck.width, deck.height);
-        context.fillText(text, deck.left + deck.width / 2, deck.top + deck.height / 2);
+        card.drawImage(deck.left, deck.top);
 
+        console.log(card.mark + " " + card.number);
+
+        context.fillStyle = "black";
+        context.font = "13px MSゴシック";
         context.textAlign = "right";
         context.textBaseLine = "center"
-        context.fillText(deck.cards.length, deck.left + deck.width, deck.top + 15);
+        context.fillText(deck.cards.length, deck.left + deck.width, deck.top + 13);
     }
 
     function initizalize() {
