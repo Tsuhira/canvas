@@ -134,10 +134,14 @@ function draw() {
         context.fillText(deck.cards.length, deck.left + deck.width, deck.top + 15);
     }
 
-    canvas.addEventListener("click", onClick, false);
+    function initizalize() {
+        canvas.addEventListener("click", onClick, false);
 
-    context.beginPath();
-    context.rect(deck.left, deck.top, deck.width, deck.height);
-    context.stroke();
+        context.beginPath();
+        context.rect(deck.left, deck.top, deck.width, deck.height);
+        context.stroke();
+    }
+
+    initizalize();
 }
 draw();
