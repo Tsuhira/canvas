@@ -133,6 +133,8 @@ function draw() {
         }
 
         addCard(card) {
+			if (card.mark == "joker")
+				return;
             this.cards.push({"card":card, "left":null, "top":null});
             this.locateCards();
         }
