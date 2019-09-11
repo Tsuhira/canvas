@@ -107,6 +107,20 @@ function draw() {
             this.cards.splice(index, 1);
             return drawn_card;
         }
+		
+		drawImage() {
+			context.drawImage(Card.sprite, 
+				Card.back_left, Card.back_top, 
+				Card.width, Card.height,
+				deck.left, deck.top,
+				deck.width, deck.height);
+
+			context.fillStyle = "black";
+			context.font = "13px MSゴシック";
+			context.textAlign = "right";
+			context.textBaseLine = "center"
+			context.fillText(deck.cards.length, deck.left + deck.width, deck.top + 13);
+		}
     }
 
     class Hand {
@@ -187,12 +201,7 @@ function draw() {
 
     function initizalize() {
         canvas.addEventListener("click", onClick, false);
-
-        context.drawImage(Card.sprite, 
-                            Card.back_left, Card.back_top, 
-                            Card.width, Card.height,
-                            deck.left, deck.top,
-                            deck.width, deck.height);
+		deck.drawImage();
     }
 
     Card.sprite.onload = initizalize;
